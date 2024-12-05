@@ -1,0 +1,17 @@
+name: Build GO
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  docker:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Quay Login
+          uses: docker/login-action@v3
+          with:
+            registry: quay.io
+            username: ${{ secrets.USERNAME }}
+            password: ${{ secrets.PASSWORD }}
