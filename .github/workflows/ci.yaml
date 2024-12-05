@@ -18,9 +18,16 @@ jobs:
             username: ${{ secrets.USERNAME }}
             password: ${{ secrets.PASSWORD }}
 
+        - name: Docker meta
+          id: meta
+          uses: docker/metadata-action@v5
+          with:
+            images: quay.io/pieterjanae/alm-workshop
+
         - name: Build and push Docker image
           uses: docker/build-push-action@v3
           with:
             context: .
             file: Dockerfile
-            push: false
+            push: true
+            tags: ${{ steps.meta.outputs.tags }}
